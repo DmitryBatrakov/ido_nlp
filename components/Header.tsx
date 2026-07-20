@@ -64,7 +64,7 @@ export default function Header() {
             className={`h-px w-6 bg-ivory transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
           />
           <span
-            className={`h-px w-6 bg-ivory transition-transform ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+            className={`h-px w-6 bg-ivory transition-transform ${open ? "translate-y-[-3.5px] -rotate-45" : ""}`}
           />
         </button>
       </div>

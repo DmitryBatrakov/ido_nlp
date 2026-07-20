@@ -78,7 +78,7 @@ export default function Hero() {
               height={2048}
               priority
               sizes="(min-width: 768px) 26rem, 90vw"
-              className="relative aspect-[3/4] w-full border border-hairline object-cover object-top"
+              className="relative aspect-3/4 w-full border border-hairline object-cover object-top"
             />
           </figure>
         </Reveal>
