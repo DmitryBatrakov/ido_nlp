@@ -65,7 +65,7 @@ export default function Contact() {
       </div>
 
       <footer className="relative border-t border-hairline">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-5 py-6 text-sm text-sand/70 sm:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-5 py-6 text-sm text-sand sm:flex-row">
           <p>עידו ספרא · מטפל ב-NLP ודמיון מודרך · חיפה ואונליין</p>
           <p dir="ltr">© {new Date().getFullYear()} Ido Safra</p>
         </div>

@@ -91,13 +91,14 @@ h3 {
 /* Карусель отзывов: scroll-snap без JS */
 .snap-row {
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1.25rem; /* совпадает с px-5, чтобы карточка не обрезалась у края */
   scrollbar-width: none;
 }
 .snap-row::-webkit-scrollbar {
   display: none;
 }
 .snap-row > * {
-  scroll-snap-align: center;
+  scroll-snap-align: start;
 }
 
 /* Видимый фокус на тёмном фоне */
