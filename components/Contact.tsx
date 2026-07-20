@@ -25,19 +25,19 @@ export default function Contact() {
         </Reveal>
 
         <Reveal delay={150}>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href={contact.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2.5 bg-brass px-8 py-4 font-medium text-night-deep transition-colors hover:bg-brass-soft sm:w-auto"
+              className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap bg-brass px-8 py-4 font-medium text-night-deep transition-colors hover:bg-brass-soft sm:w-auto"
             >
               <WhatsAppIcon className="h-5 w-5" />
               כתבו לי ב-WhatsApp
             </a>
             <a
               href={`tel:${contact.phone}`}
-              className="flex w-full items-center justify-center gap-2.5 border border-hairline px-8 py-4 text-ivory transition-colors hover:border-brass sm:w-auto"
+              className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap border border-hairline px-8 py-4 text-ivory transition-colors hover:border-brass sm:w-auto"
             >
               <PhoneIcon className="h-5 w-5" />
               <span dir="ltr">{contact.phoneDisplay}</span>
@@ -46,7 +46,7 @@ export default function Contact() {
               href={contact.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2.5 border border-hairline px-8 py-4 text-ivory transition-colors hover:border-brass sm:w-auto"
+              className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap border border-hairline px-8 py-4 text-ivory transition-colors hover:border-brass sm:w-auto"
             >
               <InstagramIcon className="h-5 w-5" />
               mastersafra
@@ -55,7 +55,7 @@ export default function Contact() {
               href={contact.youtube}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2.5 border border-hairline px-8 py-4 text-ivory transition-colors hover:border-brass sm:w-auto"
+              className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap border border-hairline px-8 py-4 text-ivory transition-colors hover:border-brass sm:w-auto"
             >
               <YouTubeIcon className="h-5 w-5" />
               לערוץ היוטיוב שלי
