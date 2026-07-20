@@ -1,26 +1,114 @@
 @import "tailwindcss";
 
+/*
+  Единая тёмная тема — осознанный визуальный мир страницы.
+  night   — грунт страницы
+  surface — карточки и приподнятые поверхности
+  ivory   — основной текст (тёплый, не белый)
+  sand    — второстепенный текст
+  brass   — латунно-золотой акцент
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --night: #0c1015;
+  --night-deep: #080b0f;
+  --surface: #151b23;
+  --surface-raised: #1a212b;
+  --ivory: #ede7dc;
+  --sand: #a29885;
+  --brass: #c9a24b;
+  --brass-soft: #e0c076;
+  --brass-dim: rgba(201, 162, 75, 0.28);
+  --hairline: rgba(237, 231, 220, 0.08);
+  --whatsapp: #1fa855;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-night: var(--night);
+  --color-night-deep: var(--night-deep);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-ivory: var(--ivory);
+  --color-sand: var(--sand);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-brass-dim: var(--brass-dim);
+  --color-hairline: var(--hairline);
+  --color-whatsapp: var(--whatsapp);
+  --font-display: var(--font-frank-ruhl);
+  --font-body: var(--font-heebo);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--night);
+  color: var(--ivory);
+  font-family: var(--font-heebo), "Heebo", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brass);
+  color: var(--night-deep);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-frank-ruhl), "Frank Ruhl Libre", serif;
+  text-wrap: balance;
+}
+
+/* Появление секций при скролле: класс .reveal ставит начальное
+   состояние, .is-visible добавляет IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Карусель отзывов: scroll-snap без JS */
+.snap-row {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.snap-row::-webkit-scrollbar {
+  display: none;
+}
+.snap-row > * {
+  scroll-snap-align: center;
+}
+
+/* Видимый фокус на тёмном фоне */
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Нативный lightbox для сертификатов */
+dialog::backdrop {
+  background: rgba(8, 11, 15, 0.85);
+  backdrop-filter: blur(6px);
 }
