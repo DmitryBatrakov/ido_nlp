@@ -1,25 +1,28 @@
 import Reveal from "./Reveal";
 
+
 export default function SectionHeading({
   eyebrow,
   title,
-  id,
+  tone = "light",
+  className = "",
 }: {
   eyebrow: string;
   title: string;
-  id?: string;
+  tone?: "light" | "dark";
+  className?: string;
 }) {
   return (
-    <Reveal>
-      <div className="mb-12 md:mb-16">
-        <p className="mb-3 flex items-center gap-3 text-sm tracking-widest text-brass">
-          <span aria-hidden="true" className="h-px w-8 bg-brass" />
-          {eyebrow}
-        </p>
-        <h2 id={id} className="text-3xl font-medium sm:text-4xl lg:text-5xl">
-          {title}
-        </h2>
-      </div>
+    <Reveal className={className}>
+      <p
+        className={`mb-3 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.24em] ${
+          tone === "dark" ? "text-gold-lt" : "text-gold-ink"
+        }`}
+      >
+        {eyebrow}
+        <span aria-hidden="true" className="h-px w-12 bg-current opacity-35" />
+      </p>
+      <h2 className="text-3xl sm:text-4xl lg:text-[3rem]">{title}</h2>
     </Reveal>
   );
 }

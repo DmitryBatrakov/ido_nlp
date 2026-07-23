@@ -1,36 +1,39 @@
 import type { Metadata } from "next";
-import { Frank_Ruhl_Libre, Heebo } from "next/font/google";
+import { Assistant, Montserrat } from "next/font/google";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const frankRuhl = Frank_Ruhl_Libre({
-  variable: "--font-frank-ruhl",
+
+const assistant = Assistant({
+  variable: "--font-assistant",
   subsets: ["hebrew", "latin"],
-  weight: ["300", "400", "500", "700"],
 });
 
-const heebo = Heebo({
-  variable: "--font-heebo",
-  subsets: ["hebrew", "latin"],
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["800"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "עידו ספרא — מטפל ב-NLP ודמיון מודרך | חיפה ואונליין",
+    default:
+      "עידו ספרא — מרצה ומנחה סדנאות לחוסן, תקשורת והתפתחות אישית",
     template: "%s | עידו ספרא",
   },
   description:
-    "NLP Master. משלב עומק רגשי עם חשיבה אסטרטגית — טיפול בטראומה, זוגיות וחרדה. לא השראה רגעית, אלא שינוי שמחזיק לאורך זמן. מפגשים בחיפה ואונליין.",
+    "הרצאות וסדנאות לארגונים, צוותים ומנהלים בנושאי חוסן מנטלי, לחץ וחרדה, תקשורת ושינוי הרגלים. NLP Master, מנחה סדנאות, סופר ומנחה פודקאסט. כל מפגש מותאם לצורכי הארגון.",
   keywords: [
+    "מרצה לארגונים",
+    "סדנאות לארגונים",
+    "הרצאות העשרה",
+    "סדנת חוסן",
+    "התמודדות עם לחץ וחרדה",
     "NLP",
-    "מטפל NLP",
-    "דמיון מודרך",
-    "טיפול בחרדה",
-    "טיפול בטראומה",
-    "זוגיות",
-    "NLP חיפה",
-    "טיפול אונליין",
+    "מאסטר NLP",
+    "פיתוח מנהלים",
+    "מרצה מילואימניקים",
     "עידו ספרא",
   ],
   alternates: { canonical: "/" },
@@ -45,9 +48,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "עידו ספרא — מטפל ב-NLP ודמיון מודרך",
+    title: "עידו ספרא — מרצה ומנחה סדנאות",
     description:
-      "טיפול בטראומה, זוגיות וחרדה. עבודה עם התת-מודע לשינוי שמחזיק לאורך זמן. חיפה ואונליין.",
+      "הרצאות וסדנאות לארגונים וצוותים: חוסן מנטלי, לחץ וחרדה, תקשורת ושינוי הרגלים. כלים פרקטיים ליישום מיידי.",
     url: "/",
     siteName: SITE_NAME,
     locale: "he_IL",
@@ -55,9 +58,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "עידו ספרא — מטפל ב-NLP ודמיון מודרך",
+    title: "עידו ספרא — מרצה ומנחה סדנאות",
     description:
-      "טיפול בטראומה, זוגיות וחרדה. עבודה עם התת-מודע לשינוי שמחזיק לאורך זמן. חיפה ואונליין.",
+      "הרצאות וסדנאות לארגונים וצוותים: חוסן מנטלי, לחץ וחרדה, תקשורת ושינוי הרגלים.",
   },
 };
 
@@ -66,12 +69,19 @@ const jsonLd = {
   "@type": "Person",
   name: "עידו ספרא",
   alternateName: "Ido Safra",
-  jobTitle: "מטפל ב-NLP ודמיון מודרך",
+  jobTitle: "מרצה, מנחה סדנאות ומאסטר NLP",
   description:
-    "NLP Master — טיפול בטראומה, זוגיות וחרדה. מפגשים בחיפה ואונליין.",
+    "מרצה ומנחה סדנאות לפיתוח חוסן, תקשורת והתפתחות אישית — לארגונים, צוותים ואנשים פרטיים.",
   url: SITE_URL,
-  image: `${SITE_URL}/images/ido.jpg`,
+  image: `${SITE_URL}/images/ido.png`,
   telephone: "+972525106411",
+  knowsAbout: [
+    "חוסן מנטלי",
+    "התמודדות עם לחץ וחרדה",
+    "תקשורת בין-אישית",
+    "NLP",
+    "שינוי הרגלים",
+  ],
   address: {
     "@type": "PostalAddress",
     addressLocality: "חיפה",
@@ -92,7 +102,7 @@ export default function RootLayout({
     <html
       lang="he"
       dir="rtl"
-      className={`${frankRuhl.variable} ${heebo.variable} antialiased`}
+      className={`${assistant.variable} ${montserrat.variable} antialiased`}
     >
       <body>
         <script

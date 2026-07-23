@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
+
 export default function Reveal({
   children,
   delay = 0,
@@ -16,14 +17,27 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    const show = () => el.classList.add("is-visible");
+
+    const isInView = () => {
+      const r = el.getBoundingClientRect();
+      return r.top < window.innerHeight && r.bottom > 0;
+    };
+
+    if (!("IntersectionObserver" in window) || isInView()) {
+      show();
+      return;
+    }
+
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("is-visible");
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          show();
           io.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

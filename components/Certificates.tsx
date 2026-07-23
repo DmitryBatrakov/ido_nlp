@@ -6,6 +6,7 @@ import { certificates } from "@/lib/content";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
+
 export default function Certificates() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [active, setActive] = useState<number | null>(null);
@@ -23,33 +24,37 @@ export default function Certificates() {
   const cert = active === null ? null : certificates[active];
 
   return (
-    <section id="certificates" className="border-t border-hairline">
+    <section id="certificates" className="bg-bone">
       <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-        <SectionHeading eyebrow="הכשרה מקצועית" title="תעודות והסמכות" />
+        <SectionHeading
+          eyebrow="Credentials"
+          title="תעודות והסמכות"
+          className="mb-12 md:mb-16"
+        />
 
-        <ul className="grid gap-6 sm:grid-cols-2">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {certificates.map((c, i) => (
-            <Reveal key={c.src} delay={(i % 2) * 120}>
+            <Reveal key={c.src} delay={(i % 4) * 100}>
               <li className="h-full">
                 <button
                   type="button"
                   onClick={() => openCert(i)}
-                  className="group flex h-full w-full flex-col border border-hairline bg-surface text-right transition-colors hover:border-brass-dim"
+                  className="group flex h-full w-full flex-col border border-line bg-card text-right transition-colors hover:border-gold/50"
                   aria-label={`הצגת תעודה: ${c.title}`}
                 >
-                  <span className="block w-full overflow-hidden border-b border-hairline bg-ivory/5">
+                  <span className="block w-full overflow-hidden border-b border-line">
                     <Image
                       src={c.src}
                       alt={`תעודה — ${c.title}`}
                       width={c.width}
                       height={c.height}
-                      sizes="(min-width: 640px) 34rem, 90vw"
-                      className="aspect-[16/10] w-full object-cover object-top opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
+                      sizes="(min-width: 1024px) 17rem, (min-width: 640px) 45vw, 90vw"
+                      className="aspect-16/10 w-full object-cover object-top transition duration-500 group-hover:scale-[1.02]"
                     />
                   </span>
-                  <span className="flex flex-1 flex-col gap-1 p-5">
-                    <span className="text-lg text-ivory">{c.title}</span>
-                    <span className="text-sm text-sand">{c.detail}</span>
+                  <span className="flex flex-1 flex-col gap-1 p-4">
+                    <span className="font-bold leading-snug">{c.title}</span>
+                    <span className="text-sm text-ink-soft">{c.detail}</span>
                   </span>
                 </button>
               </li>
@@ -64,7 +69,7 @@ export default function Certificates() {
         onClick={(e) => {
           if (e.target === dialogRef.current) closeCert();
         }}
-        className="m-auto w-[min(64rem,94vw)] border border-hairline bg-night p-0 backdrop:cursor-pointer"
+        className="m-auto w-[min(64rem,94vw)] border border-line bg-bone p-0 text-ink backdrop:cursor-pointer"
       >
         {cert && (
           <figure>
@@ -76,14 +81,14 @@ export default function Certificates() {
               sizes="94vw"
               className="max-h-[80vh] w-full object-contain"
             />
-            <figcaption className="flex items-center justify-between gap-4 border-t border-hairline p-4 text-sm text-sand">
+            <figcaption className="flex items-center justify-between gap-4 border-t border-line p-4 text-sm text-ink-soft">
               <span>
                 {cert.title} · {cert.detail}
               </span>
               <button
                 type="button"
                 onClick={closeCert}
-                className="border border-hairline px-4 py-2 text-ivory transition-colors hover:border-brass"
+                className="border border-line px-4 py-2 font-bold text-ink transition-colors hover:border-gold"
               >
                 סגירה
               </button>

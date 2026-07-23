@@ -1,41 +1,50 @@
 @import "tailwindcss";
 
-/*
-  Единая тёмная тема — осознанный визуальный мир страницы.
-  night   — грунт страницы
-  surface — карточки и приподнятые поверхности
-  ivory   — основной текст (тёплый, не белый)
-  sand    — второстепенный текст
-  brass   — латунно-золотой акцент
-*/
 :root {
-  --night: #0c1015;
-  --night-deep: #080b0f;
-  --surface: #151b23;
-  --surface-raised: #1a212b;
-  --ivory: #ede7dc;
-  --sand: #a29885;
-  --brass: #c9a24b;
-  --brass-soft: #e0c076;
-  --brass-dim: rgba(201, 162, 75, 0.28);
-  --hairline: rgba(237, 231, 220, 0.08);
+  --night: #14161a;
+  --night-2: #1d2026;
+  --bone: #f4f1ec;
+  --bone-2: #ede8de;
+  --card: #fbf9f5;
+  --beige: #e9dfc9;
+
+  --ink: #14161a;
+  --ink-soft: #57544d;
+  --cream: #efeae0;
+  --cream-soft: #a79e8c;
+
+  --gold: #b8873b;
+  --gold-lt: #e3c275;
+  --gold-ink: #8a6522;
+
+  --line: rgba(20, 22, 26, 0.12);
+  --line-dark: rgba(239, 234, 224, 0.12);
   --whatsapp: #1fa855;
 }
 
 @theme inline {
   --color-night: var(--night);
-  --color-night-deep: var(--night-deep);
-  --color-surface: var(--surface);
-  --color-surface-raised: var(--surface-raised);
-  --color-ivory: var(--ivory);
-  --color-sand: var(--sand);
-  --color-brass: var(--brass);
-  --color-brass-soft: var(--brass-soft);
-  --color-brass-dim: var(--brass-dim);
-  --color-hairline: var(--hairline);
+  --color-night-2: var(--night-2);
+  --color-bone: var(--bone);
+  --color-bone-2: var(--bone-2);
+  --color-card: var(--card);
+  --color-beige: var(--beige);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-cream: var(--cream);
+  --color-cream-soft: var(--cream-soft);
+
+  --color-gold: var(--gold);
+  --color-gold-lt: var(--gold-lt);
+  --color-gold-ink: var(--gold-ink);
+
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
   --color-whatsapp: var(--whatsapp);
-  --font-display: var(--font-frank-ruhl);
-  --font-body: var(--font-heebo);
+
+  --font-sans: var(--font-assistant);
+  --font-wordmark: var(--font-montserrat);
 }
 
 html {
@@ -43,26 +52,81 @@ html {
 }
 
 body {
-  background: var(--night);
-  color: var(--ivory);
-  font-family: var(--font-heebo), "Heebo", sans-serif;
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-assistant), "Assistant", sans-serif;
   -webkit-font-smoothing: antialiased;
-}
-
-::selection {
-  background: var(--brass);
-  color: var(--night-deep);
 }
 
 h1,
 h2,
-h3 {
-  font-family: var(--font-frank-ruhl), "Frank Ruhl Libre", serif;
+h3,
+h4 {
+  font-weight: 800;
+  line-height: 1.12;
   text-wrap: balance;
 }
 
-/* Появление секций при скролле: класс .reveal ставит начальное
-   состояние, .is-visible добавляет IntersectionObserver */
+::selection {
+  background: var(--gold);
+  color: #241a09;
+}
+
+
+.gold-text {
+  background-image: linear-gradient(
+    100deg,
+    var(--gold) 8%,
+    var(--gold-lt) 52%,
+    var(--gold) 92%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+.gold-plate,
+.btn-gold {
+  background-image: linear-gradient(
+    100deg,
+    var(--gold) 0%,
+    var(--gold-lt) 55%,
+    var(--gold) 100%
+  );
+  color: #241a09;
+}
+
+.btn-gold {
+  transition:
+    filter 0.2s,
+    transform 0.2s;
+}
+
+.btn-gold:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-gold:hover {
+    transform: none;
+  }
+}
+
+.dots {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 18rem;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(227, 194, 117, 0.5) 1.5px, transparent 1.5px);
+  background-size: 15px 15px;
+  mask-image: radial-gradient(130% 90% at 82% 100%, #000, transparent 70%);
+  -webkit-mask-image: radial-gradient(130% 90% at 82% 100%, #000, transparent 70%);
+  opacity: 0.5;
+}
+
+
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -88,10 +152,9 @@ h3 {
   }
 }
 
-/* Карусель отзывов: scroll-snap без JS */
 .snap-row {
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 1.25rem; /* совпадает с px-5, чтобы карточка не обрезалась у края */
+  scroll-padding-inline: 1.25rem; 
   scrollbar-width: none;
 }
 .snap-row::-webkit-scrollbar {
@@ -101,15 +164,13 @@ h3 {
   scroll-snap-align: start;
 }
 
-/* Видимый фокус на тёмном фоне */
 :focus-visible {
-  outline: 2px solid var(--brass);
+  outline: 2px solid var(--gold);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-/* Нативный lightbox для сертификатов */
 dialog::backdrop {
-  background: rgba(8, 11, 15, 0.85);
+  background: rgba(20, 22, 26, 0.85);
   backdrop-filter: blur(6px);
 }

@@ -1,3 +1,147 @@
+import type { ReactNode } from "react";
+
+
+const linePaths = {
+  hand: (
+    <path d="M9 11.5V5.5a1.5 1.5 0 0 1 3 0V11m0-1.2a1.5 1.5 0 0 1 3 0V12m0-1.2a1.5 1.5 0 0 1 3 0V16a5.5 5.5 0 0 1-5.5 5.5H11a5 5 0 0 1-4.3-2.45L4.9 15.9a1.6 1.6 0 0 1 2.6-1.85L9 15.6" />
+  ),
+  speech: (
+    <>
+      <path d="M20.5 4.5h-17v11.5h4.5v4l5-4h7.5z" />
+      <path d="M8 9h8M8 12h5" />
+    </>
+  ),
+  run: (
+    <>
+      <circle cx="15" cy="4.5" r="2" />
+      <path d="M13.5 21l1.5-5.5-3-2.5.8-4.5 3.2 3 3.5.8" />
+      <path d="M12.8 8.5L9 10l-1 3.5M11 15l-3.5 6" />
+    </>
+  ),
+  sunrise: (
+    <>
+      <path d="M3 18h18M6.5 18a5.5 5.5 0 0 1 11 0" />
+      <path d="M12 4v2.5M5.2 7l1.6 1.6M18.8 7l-1.6 1.6M2.5 13H5M19 13h2.5" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="4.5" y="11" width="15" height="9.5" rx="1.5" />
+      <path d="M8 11V7.5a4 4 0 0 1 7.8-1.3" />
+      <path d="M12 15v2" />
+    </>
+  ),
+  pen: (
+    <>
+      <path d="M4 20.5l1.2-4.4L16.4 5a2 2 0 0 1 2.8 0l.8.8a2 2 0 0 1 0 2.8L8.8 19.4z" />
+      <path d="M14.8 6.8l3.2 3.2" />
+    </>
+  ),
+  target: (
+    <>
+      <circle cx="12" cy="12" r="8.2" />
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 12l7-7M16.5 3.2l2.5 2.5 2.6-.4-.4 2.6" />
+    </>
+  ),
+  head: (
+    <>
+      <path d="M20 13.5c0-4.7-3.6-8.5-8-8.5S4 8.8 4 13.5c0 1.7.5 2.6 1.4 3.5V21h9v-2.5h2.4a1 1 0 0 0 1-1v-2z" />
+      <path d="M9 12.5a2.5 2.5 0 1 1 3.6 2.2" />
+    </>
+  ),
+  puzzle: (
+    <path d="M10 4.5h4v2a2 2 0 1 0 4 0v-2h1.5v5h-2a2 2 0 1 0 0 4h2v5h-5v-2a2 2 0 1 0-4 0v2H4.5v-5h2a2 2 0 1 0 0-4h-2v-5H10z" />
+  ),
+  shield: (
+    <>
+      <path d="M12 3.2l7.5 3v6c0 4.6-3.2 8.2-7.5 9.3-4.3-1.1-7.5-4.7-7.5-9.3v-6z" />
+      <path d="M9 12.2l2.2 2.2 4-4.2" />
+    </>
+  ),
+  heart: (
+    <path d="M12 20.4s-7.6-4.6-7.6-9.6a4.3 4.3 0 0 1 7.6-2.8 4.3 4.3 0 0 1 7.6 2.8c0 5-7.6 9.6-7.6 9.6z" />
+  ),
+  mic: (
+    <>
+      <rect x="9.2" y="2.8" width="5.6" height="11" rx="2.8" />
+      <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.2M8.5 21.2h7" />
+    </>
+  ),
+  users: (
+    <>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3.2 20.2a5.8 5.8 0 0 1 11.6 0" />
+      <path d="M16 5.2a3.2 3.2 0 0 1 0 5.9M17.5 14.5a5.8 5.8 0 0 1 3.4 5.7" />
+    </>
+  ),
+  book: (
+    <>
+      <path d="M12 6.4S10 4.5 4 4.8v13.6c6-.3 8 1.6 8 1.6s2-1.9 8-1.6V4.8c-6-.3-8 1.6-8 1.6z" />
+      <path d="M12 6.4v13.6" />
+    </>
+  ),
+  podcast: (
+    <>
+      <path d="M4.8 16A9 9 0 1 1 19.2 16" />
+      <rect x="2.8" y="13.5" width="3.6" height="6.5" rx="1.8" />
+      <rect x="17.6" y="13.5" width="3.6" height="6.5" rx="1.8" />
+    </>
+  ),
+  check: <path d="M4.5 12.5l5 5 10-11" />,
+  person: (
+    <>
+      <circle cx="12" cy="7.5" r="3.6" />
+      <path d="M4.8 20.5a7.2 7.2 0 0 1 14.4 0" />
+    </>
+  ),
+  handshake: (
+    <>
+      <path d="M2.8 9.5L6 6.5l3.5 1.2L13 6.5l4.5 3.4" />
+      <path d="M13 6.5l3.6 3.6a1.8 1.8 0 0 1-2.4 2.6l-1.6-1.4" />
+      <path d="M12.6 11.3l2 1.9a1.7 1.7 0 0 1-2.3 2.5M12.3 15.7a1.7 1.7 0 0 1-2.4 2.4l-3.7-3.4" />
+      <path d="M18 10.5l3.2-2.8" />
+    </>
+  ),
+  arrow: <path d="M15 5l-7 7 7 7" />,
+} satisfies Record<string, ReactNode>;
+
+export type IconName = keyof typeof linePaths;
+
+export function LineIcon({
+  name,
+  className = "",
+  strokeWidth = 1.5,
+}: {
+  name: IconName;
+  className?: string;
+  strokeWidth?: number;
+}) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      {linePaths[name]}
+    </svg>
+  );
+}
+
+/** Крупные золотые кавычки — открывают цитаты на каждом развороте. */
+export function QuoteMark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M9.6 4.4C6 6 3.8 9.2 3.8 13.2c0 3.9 2 6.4 5 6.4 2.5 0 4.4-1.8 4.4-4.2 0-2.3-1.6-4-3.9-4-.5 0-1 .1-1.2.2.4-2.3 2.2-4.4 4.6-5.6zm10 0C16 6 13.8 9.2 13.8 13.2c0 3.9 2 6.4 5 6.4 2.5 0 4.4-1.8 4.4-4.2 0-2.3-1.6-4-3.9-4-.5 0-1 .1-1.2.2.4-2.3 2.2-4.4 4.6-5.6z" />
+    </svg>
+  );
+}
+
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
