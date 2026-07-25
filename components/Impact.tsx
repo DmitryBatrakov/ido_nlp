@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { book, impact, podcast } from "@/lib/content";
+import type { Dictionary } from "@/lib/content";
 import { LineIcon } from "./icons";
 import Reveal from "./Reveal";
 
 
-export default function Impact() {
+export default function Impact({ t }: { t: Dictionary }) {
+  const { book, impact, podcast } = t;
   return (
     <section id="impact" className="bg-bone">
       <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
@@ -31,7 +32,7 @@ export default function Impact() {
           </p>
         </Reveal>
 
-        <div className="grid items-start gap-8 lg:grid-cols-2">
+        <div className="grid items-stretch gap-8 lg:grid-cols-2">
           <Reveal>
             <article className="flex h-full flex-col border border-line bg-card p-6 md:p-8">
               <p className="mb-5 flex items-center gap-2.5 text-xs font-extrabold uppercase tracking-[0.2em] text-gold-ink">
@@ -44,7 +45,7 @@ export default function Impact() {
                   href={book.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`לרכישת הספר ${book.title}`}
+                  aria-label={`${book.buyLabel} — ${book.title}`}
                   className="group relative mx-auto block w-34 shrink-0 sm:mx-0"
                 >
                   <span
@@ -53,7 +54,7 @@ export default function Impact() {
                   />
                   <Image
                     src={book.cover}
-                    alt={`כריכת הספר ${book.title}`}
+                    alt={book.coverAlt}
                     width={500}
                     height={790}
                     sizes="8.5rem"
@@ -70,8 +71,8 @@ export default function Impact() {
                 </div>
               </div>
 
-              <p className="mt-5 border-t border-line pt-4 font-bold leading-snug">
-                ״{book.quote}״
+              <p className="mt-auto border-t border-line pt-6 font-bold leading-snug">
+                {book.quote}
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -96,7 +97,7 @@ export default function Impact() {
               </p>
 
               <h3 className="text-2xl">{podcast.title}</h3>
-              <p dir="ltr" className="mb-2 text-right text-sm font-bold text-gold-ink">
+              <p className="mb-2 text-start text-sm font-bold text-gold-ink">
                 {podcast.subtitle}
               </p>
               <p className="leading-relaxed text-ink-soft">{podcast.description}</p>
@@ -114,7 +115,7 @@ export default function Impact() {
                 ))}
               </ul>
 
-              <p className="mt-5 border-t border-line pt-4 font-bold leading-snug">
+              <p className="mt-auto border-t border-line pt-6 font-bold leading-snug">
                 {podcast.quote}
               </p>
 

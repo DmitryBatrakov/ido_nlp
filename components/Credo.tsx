@@ -1,8 +1,9 @@
-import { credo } from "@/lib/content";
+import type { Dictionary } from "@/lib/content";
 import { QuoteMark } from "./icons";
 import Reveal from "./Reveal";
 
-export default function Credo() {
+export default function Credo({ t }: { t: Dictionary }) {
+  const { credo } = t;
   return (
     <section
       id="credo"

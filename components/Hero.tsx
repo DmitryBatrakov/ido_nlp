@@ -1,9 +1,11 @@
 import Image from "next/image";
-import { contact, brand, hero, tagline } from "@/lib/content";
+import { contact, type Dictionary } from "@/lib/content";
+import type { Locale } from "@/lib/i18n";
 import { PhoneIcon, QuoteMark, WhatsAppIcon } from "./icons";
 import Reveal from "./Reveal";
 
-export default function Hero() {
+export default function Hero({ t, lang }: { t: Dictionary; lang: Locale }) {
+  const { brand, hero, tagline } = t;
   return (
     <section
       id="top"
@@ -15,6 +17,11 @@ export default function Hero() {
     >
       <div
         aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-90 mix-blend-soft-light"
+        style={{ backgroundImage: "url(/images/hero.png)" }}
+      />
+      <div
+        aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
           background:
@@ -23,8 +30,8 @@ export default function Hero() {
       />
       <div aria-hidden="true" className="dots" />
 
-      <div className="relative mx-auto grid max-w-6xl gap-14 px-5 pb-24 pt-32 md:grid-cols-[7fr_5fr] md:items-center md:gap-10 md:pb-32 md:pt-40">
-        <div>
+      <div className="relative mx-auto grid max-w-6xl gap-14 px-5 pb-24 pt-32 md:grid-cols-[5fr_7fr] md:items-center md:gap-20 md:pb-32 md:pt-32">
+        <div className="md:order-2">
           <Reveal>
             <p
               dir="ltr"
@@ -44,7 +51,7 @@ export default function Hero() {
           <Reveal delay={100}>
             <h1
               dir="ltr"
-              className="my-6 text-end font-wordmark text-[clamp(3.1rem,11vw,6.4rem)] leading-[0.9] tracking-tight"
+              className={`my-6 font-wordmark text-[clamp(3.1rem,11vw,6.4rem)] leading-[0.9] tracking-tight ${lang === 'he' ? 'text-end' : 'text-start'}`}
             >
               <span className="block">{brand.wordmark.first}</span>
               <span className="gold-text block">{brand.wordmark.second}</span>
@@ -53,22 +60,24 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={200}>
-            <p className="border-r-2 border-gold pr-4 text-xl font-bold sm:text-2xl">
+            <p className="border-s-2 border-gold ps-4 text-xl font-bold sm:text-2xl">
               {hero.role}
-              <span
-                dir="ltr"
-                className="mt-1 block text-right text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cream-soft"
-              >
-                {hero.roleEn}
-              </span>
+              {hero.roleSub && (
+                <span
+                  dir="ltr"
+                  className="mt-1 block text-start text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cream-soft"
+                >
+                  {hero.roleSub}
+                </span>
+              )}
             </p>
-            <p className="mt-3 pr-4 text-sm text-cream-soft">{hero.location}</p>
+            <p className="mt-3 ps-4 text-sm text-cream-soft">{hero.location}</p>
           </Reveal>
 
           <Reveal delay={320}>
             <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3">
               <a
-                href={contact.whatsapp}
+                href={t.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-gold flex items-center gap-2.5 px-7 py-3.5 font-extrabold"
@@ -80,7 +89,7 @@ export default function Hero() {
                 href="#offerings"
                 className="px-2 py-3.5 font-bold text-cream-soft transition-colors hover:text-cream"
               >
-                {hero.ctaSecondary} ←
+                {hero.ctaSecondary} {lang === "he" ? "←" : "→"}
               </a>
               <a
                 href={`tel:${contact.phone}`}
@@ -93,7 +102,7 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={200} className="mx-auto w-full max-w-sm md:max-w-none">
+        <Reveal delay={200} className="mx-auto w-full max-w-sm md:order-1 md:max-w-none">
           <figure className="relative">
             <div
               aria-hidden="true"
@@ -101,7 +110,7 @@ export default function Hero() {
             />
             <Image
               src="/images/ido.png"
-              alt="עידו ספרא — פורטרט"
+              alt={t.ui.portraitAlt}
               width={1066}
               height={1600}
               preload

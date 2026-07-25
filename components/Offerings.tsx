@@ -1,26 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { contact, offerings } from "@/lib/content";
+import { waLink, type Dictionary } from "@/lib/content";
 import { LineIcon } from "./icons";
 import Reveal from "./Reveal";
 
 
-const items = offerings.columns.flatMap((column, gi) =>
-  column.items.map((item, ii) => ({
-    ...item,
-    kind: column.title,
-    key: `${gi}-${ii}`,
-  })),
-);
+type OfferingColumns = Dictionary["offerings"]["columns"];
 
-type Item = (typeof items)[number];
+type Item = OfferingColumns[number]["items"][number] & {
+  kind: string;
+  key: string;
+};
 
-const waLink = (title: string) =>
-  `https://wa.me/${contact.phone.replace(/\D/g, "")}?text=` +
-  encodeURIComponent(`היי עידו, אשמח לשמוע על המפגש "${title}"`);
+type Labels = { suitableFor: string; bookCta: string; waIntro: string };
 
-function Detail({ item, compact }: { item: Item; compact?: boolean }) {
+function Detail({
+  item,
+  labels,
+  compact,
+}: {
+  item: Item;
+  labels: Labels;
+  compact?: boolean;
+}) {
   return (
     <>
       {!compact && (
@@ -39,24 +42,40 @@ function Detail({ item, compact }: { item: Item; compact?: boolean }) {
 
       <p className="mt-5 border-t border-line pt-4 text-sm leading-snug text-ink-soft">
         <span className="mb-1.5 block text-[0.7rem] font-extrabold uppercase tracking-[0.16em] text-ink">
-          מתאים ל
+          {labels.suitableFor}
         </span>
         {item.who}
       </p>
 
       <a
-        href={waLink(item.title)}
+        href={waLink(`${labels.waIntro} "${item.title}"`)}
         target="_blank"
         rel="noopener noreferrer"
         className="btn-gold mt-6 inline-flex self-start px-7 py-3 font-extrabold"
       >
-        לתיאום המפגש
+        {labels.bookCta}
       </a>
     </>
   );
 }
 
-export default function Offerings() {
+export default function Offerings({ t }: { t: Dictionary }) {
+  const { offerings } = t;
+
+  const items: Item[] = offerings.columns.flatMap((column, gi) =>
+    column.items.map((item, ii) => ({
+      ...item,
+      kind: column.title,
+      key: `${gi}-${ii}`,
+    })),
+  );
+
+  const labels: Labels = {
+    suitableFor: offerings.suitableFor,
+    bookCta: offerings.bookCta,
+    waIntro: t.waIntro,
+  };
+
   const [activeKey, setActiveKey] = useState(items[0].key);
   const active = items.find((item) => item.key === activeKey) ?? items[0];
 
@@ -144,6 +163,7 @@ export default function Offerings() {
                               <div className="flex flex-col bg-bone px-4 pb-5 pt-4">
                                 <Detail
                                   item={{ ...item, kind: column.title, key }}
+                                  labels={labels}
                                   compact
                                 />
                               </div>
@@ -172,7 +192,7 @@ export default function Offerings() {
               />
 
               <div aria-live="polite" className="relative flex flex-1 flex-col">
-                <Detail item={active} />
+                <Detail item={active} labels={labels} />
               </div>
 
               <p className="relative mt-10 flex items-start gap-3 border-t border-dashed border-line pt-6 text-sm leading-relaxed text-ink-soft">

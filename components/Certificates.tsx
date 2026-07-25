@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { certificates } from "@/lib/content";
+import type { Dictionary } from "@/lib/content";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
 
-export default function Certificates() {
+export default function Certificates({ t }: { t: Dictionary }) {
+  const certs = t.certificates;
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [active, setActive] = useState<number | null>(null);
 
@@ -21,31 +22,31 @@ export default function Certificates() {
     setActive(null);
   };
 
-  const cert = active === null ? null : certificates[active];
+  const cert = active === null ? null : certs.items[active];
 
   return (
     <section id="certificates" className="bg-bone">
-      <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 py-20 md:py-28">
         <SectionHeading
-          eyebrow="Credentials"
-          title="תעודות והסמכות"
-          className="mb-12 md:mb-16"
+          eyebrow={certs.eyebrow}
+          title={certs.title}
+          className="mb-12 md:mb-16 max-w-6xl mx-auto"
         />
 
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {certificates.map((c, i) => (
+        <ul className="grid gap-5 grid-cols-2 lg:grid-cols-4">
+          {certs.items.map((c, i) => (
             <Reveal key={c.src} delay={(i % 4) * 100}>
               <li className="h-full">
                 <button
                   type="button"
                   onClick={() => openCert(i)}
-                  className="group flex h-full w-full flex-col border border-line bg-card text-right transition-colors hover:border-gold/50"
-                  aria-label={`הצגת תעודה: ${c.title}`}
+                  className="group flex h-full w-full flex-col border border-line bg-card text-start transition-colors hover:border-gold/50"
+                  aria-label={`${certs.viewLabel}: ${c.title}`}
                 >
                   <span className="block w-full overflow-hidden border-b border-line">
                     <Image
                       src={c.src}
-                      alt={`תעודה — ${c.title}`}
+                      alt={`${certs.altPrefix} — ${c.title}`}
                       width={c.width}
                       height={c.height}
                       sizes="(min-width: 1024px) 17rem, (min-width: 640px) 45vw, 90vw"
@@ -75,7 +76,7 @@ export default function Certificates() {
           <figure>
             <Image
               src={cert.src}
-              alt={`תעודה — ${cert.title}`}
+              alt={`${certs.altPrefix} — ${cert.title}`}
               width={cert.width}
               height={cert.height}
               sizes="94vw"
@@ -90,7 +91,7 @@ export default function Certificates() {
                 onClick={closeCert}
                 className="border border-line px-4 py-2 font-bold text-ink transition-colors hover:border-gold"
               >
-                סגירה
+                {certs.closeLabel}
               </button>
             </figcaption>
           </figure>

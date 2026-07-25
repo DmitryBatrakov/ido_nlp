@@ -1,10 +1,11 @@
-import { contact, contactSection, tagline } from "@/lib/content";
+import { contact, type Dictionary } from "@/lib/content";
 import { InstagramIcon, PhoneIcon, WhatsAppIcon, YouTubeIcon } from "./icons";
 import Logo from "./Logo";
 import Reveal from "./Reveal";
 
 
-export default function Contact() {
+export default function Contact({ t }: { t: Dictionary }) {
+  const { contactSection, tagline } = t;
   return (
     <section
       id="contact"
@@ -20,7 +21,7 @@ export default function Contact() {
       />
       <div aria-hidden="true" className="dots" />
 
-      <div className="relative mx-auto max-w-4xl px-5 py-24 text-center md:py-28">
+      <div className="relative mx-auto max-w-5xl px-5 py-24 text-center md:py-28">
         <Reveal>
           <h2 className="text-4xl leading-tight sm:text-5xl">
             {contactSection.title}
@@ -33,7 +34,7 @@ export default function Contact() {
         <Reveal delay={150}>
           <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-center">
             <a
-              href={contact.whatsapp}
+              href={t.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-gold flex w-full items-center justify-center gap-2.5 whitespace-nowrap px-8 py-4 font-extrabold sm:w-auto"
@@ -64,16 +65,16 @@ export default function Contact() {
               className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap border border-line-dark px-8 py-4 font-bold transition-colors hover:border-gold sm:w-auto"
             >
               <YouTubeIcon className="h-5 w-5" />
-              לערוץ היוטיוב שלי
+              {contactSection.youtubeLabel}
             </a>
           </div>
         </Reveal>
       </div>
 
       <footer className="relative border-t border-line-dark">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-5 py-10 text-center sm:flex-row sm:justify-between sm:text-right">
-          <a href="#top" aria-label="עידו ספרא — לראש העמוד">
-            <Logo size="lg" />
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-5 py-10 text-center sm:flex-row sm:justify-between sm:text-start">
+          <a href="#top" aria-label={t.ui.toTop}>
+            <Logo brand={t.brand} size="lg" />
           </a>
           <p
             dir="ltr"
@@ -89,7 +90,7 @@ export default function Contact() {
 
         <div className="border-t border-line-dark">
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-5 py-5 text-sm text-cream-soft sm:flex-row">
-            <p>עידו ספרא · מרצה, מנחה סדנאות ומאסטר NLP · חיפה ואונליין</p>
+            <p>{t.ui.footerLine}</p>
             <p dir="ltr">© {new Date().getFullYear()} Ido Safra</p>
           </div>
         </div>
