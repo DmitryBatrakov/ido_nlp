@@ -38,6 +38,10 @@ type Certificate = {
 
 type Role = { icon: IconName; label: string; sub?: string };
 
+export type MediaItem =
+  | { type: "photo"; src: string }
+  | { type: "video"; id: string; title?: string; short?: boolean };
+
 export type Dictionary = {
   meta: {
     title: string;
@@ -95,6 +99,16 @@ export type Dictionary = {
   };
   credo: { eyebrow: string; quote: string; highlight: string; closing: string };
   impact: { titleGold: string; titleInk: string; chips: string[]; lede: string };
+  media: {
+    eyebrow: string;
+    title: string;
+    playLabel: string;
+    photoLabel: string;
+    closeLabel: string;
+    moreLabel: string;
+    lessLabel: string;
+    items: MediaItem[];
+  };
   book: {
     kicker: string;
     title: string;
@@ -204,7 +218,7 @@ const he: Dictionary = {
     introLead: "אני מאמין בכוחו של ",
     introHighlight: "שינוי פנימי",
     introRest:
-      " להוביל לתוצאות חיצוניות. במשך השנים ליוויתי מאות אנשים, צוותים וארגונים במסע לעבר חוסן מנטלי, תקשורת אפקטיבית וביצועים גבוהים — גם בתנאי לחץ ומשבר.",
+      " להוביל לתוצאות פרקטיות. במשך השנים ליוויתי מאות אנשים, צוותים וארגונים במסע לעבר חוסן מנטלי, תקשורת אפקטיבית וביצועים גבוהים — גם בתנאי לחץ ומשבר.",
     creds: [
       {
         icon: "person",
@@ -397,6 +411,32 @@ const he: Dictionary = {
     chips: ["ספר", "פודקאסט", "יצירת תוכן"],
     lede: "שינוי אמיתי לא מסתיים בסוף ההרצאה. הוא ממשיך דרך מילים, שיחות, רעיונות וסיפורים שמלווים אנשים גם הרבה אחרי שהמפגש נגמר.",
   },
+  media: {
+    eyebrow: "Video",
+    title: "סרטונים ותמונות נבחרים",
+    playLabel: "נגן וידאו",
+    photoLabel: "הגדלת התמונה",
+    closeLabel: "סגירה",
+    moreLabel: "הצג עוד",
+    lessLabel: "הצג פחות",
+    items: [
+      { type: "video", id: "sT-AroxDhVs", title: "מכתב פוסט טראומטי" },
+      { type: "photo", src: "/images/photo-01.jpg" },
+      { type: "photo", src: "/images/photo-02.jpg" },
+      { type: "photo", src: "/images/photo-05.jpg" },
+      { type: "video", id: "wrBtQjUjOsg", title: "אני בפקק · spoken word" },
+      { type: "photo", src: "/images/photo-07.jpg" },
+      { type: "photo", src: "/images/photo-03.jpg" },
+      { type: "photo", src: "/images/photo-06.jpg" },
+      { type: "video", id: "YeaYPU1-9JM", short: true },
+      { type: "photo", src: "/images/photo-08.jpg" },
+      { type: "photo", src: "/images/photo-04.jpg" },
+      { type: "photo", src: "/images/photo-09.jpg" },
+      { type: "photo", src: "/images/photo-10.jpg" },
+      { type: "photo", src: "/images/photo-12.jpg" },
+      { type: "video", id: "MMkayYv8NKQ", short: true },
+    ],
+  },
   book: {
     kicker: "הספר",
     title: "מציאות כובלת",
@@ -434,6 +474,13 @@ const he: Dictionary = {
     altPrefix: "תעודה",
     items: [
       {
+        src: "/images/cert-nlp-trainer.jpeg",
+        width: 1600,
+        height: 1186,
+        title: "NLP Trainer",
+        detail: "מכללת רטר · 218 שעות אקדמיות · 2026",
+      },
+      {
         src: "/images/cert-practitioner.jpg",
         width: 1440,
         height: 1040,
@@ -460,6 +507,13 @@ const he: Dictionary = {
         height: 1388,
         title: "טיפול בחרדה",
         detail: "סדנה ייעודית · מכללת רטר · 2026",
+      },
+      {
+        src: "/images/cert-trauma.jpeg",
+        width: 1080,
+        height: 879,
+        title: "טיפול בטראומה",
+        detail: "התמחות ייעודית · מכללת רטר · 80 שעות · 2026",
       },
     ],
   },
@@ -548,7 +602,7 @@ const en: Dictionary = {
     introLead: "I believe in the power of ",
     introHighlight: "inner change",
     introRest:
-      " to drive outer results. Over the years I've guided hundreds of people, teams and organizations on a journey toward mental resilience, effective communication and high performance — even under pressure and in crisis.",
+      " to drive practical results. Over the years I've guided hundreds of people, teams and organizations on a journey toward mental resilience, effective communication and high performance — even under pressure and in crisis.",
     creds: [
       {
         icon: "person",
@@ -741,6 +795,32 @@ const en: Dictionary = {
     chips: ["Book", "Podcast", "Content"],
     lede: "Real change doesn't end when the talk is over. It continues through words, conversations, ideas and stories that stay with people long after the session ends.",
   },
+  media: {
+    eyebrow: "Video",
+    title: "Selected videos & photos",
+    playLabel: "Play video",
+    photoLabel: "Enlarge photo",
+    closeLabel: "Close",
+    moreLabel: "Show more",
+    lessLabel: "Show less",
+    items: [
+      { type: "video", id: "sT-AroxDhVs", title: "A post-traumatic letter" },
+      { type: "photo", src: "/images/photo-01.jpg" },
+      { type: "photo", src: "/images/photo-02.jpg" },
+      { type: "photo", src: "/images/photo-05.jpg" },
+      { type: "video", id: "wrBtQjUjOsg", title: "In traffic · spoken word" },
+      { type: "photo", src: "/images/photo-07.jpg" },
+      { type: "photo", src: "/images/photo-03.jpg" },
+      { type: "photo", src: "/images/photo-06.jpg" },
+      { type: "video", id: "YeaYPU1-9JM", short: true },
+      { type: "photo", src: "/images/photo-08.jpg" },
+      { type: "photo", src: "/images/photo-04.jpg" },
+      { type: "photo", src: "/images/photo-09.jpg" },
+      { type: "photo", src: "/images/photo-10.jpg" },
+      { type: "photo", src: "/images/photo-12.jpg" },
+      { type: "video", id: "MMkayYv8NKQ", short: true },
+    ],
+  },
   book: {
     kicker: "The book",
     title: "Binding Reality",
@@ -778,6 +858,13 @@ const en: Dictionary = {
     altPrefix: "Certificate",
     items: [
       {
+        src: "/images/cert-nlp-trainer.jpeg",
+        width: 1600,
+        height: 1186,
+        title: "NLP Trainer",
+        detail: "Retter College · 218 academic hours · 2026",
+      },
+      {
         src: "/images/cert-practitioner.jpg",
         width: 1440,
         height: 1040,
@@ -804,6 +891,13 @@ const en: Dictionary = {
         height: 1388,
         title: "Anxiety treatment",
         detail: "Dedicated workshop · Retter College · 2026",
+      },
+      {
+        src: "/images/cert-trauma.jpeg",
+        width: 1080,
+        height: 879,
+        title: "Trauma treatment",
+        detail: "Dedicated training · Retter College · 80 hours · 2026",
       },
     ],
   },

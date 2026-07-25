@@ -9,6 +9,7 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Impact from "@/components/Impact";
+import Media from "@/components/Media";
 import Offerings from "@/components/Offerings";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
@@ -40,6 +41,7 @@ export default async function Home({
         <Testimonials t={t} lang={typedLocale} />
         <Credo t={t} />
         <Impact t={t} />
+        <Media t={t} />
         <Certificates t={t} />
         <Contact t={t} />
       </main>
