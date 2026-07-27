@@ -61,9 +61,9 @@ export default function Offerings() {
           </div>
 
           {/* tailoring / online note */}
-          <p className="mt-10 flex items-start justify-center gap-3 border-t border-dashed border-line pt-6 text-center text-sm leading-relaxed text-ink-soft">
-            <LineIcon name="target" className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
-            <span className="max-w-[60ch]">{t("note")}</span>
+          <p className="gold-plate mt-12 flex items-center justify-center gap-4 px-6 py-6 text-center font-bold md:mt-16 md:px-10">
+            <LineIcon name="target" className="w-8 h-8 md:h-12 md:w-12 shrink-0" />
+            <span className="max-w-[52ch]">{t("note")}</span>
           </p>
         </Reveal>
       </div>
