@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import type { Dictionary } from "@/lib/content";
+import { waLink, type Dictionary } from "@/lib/content";
 import { LineIcon } from "./icons";
 import OfferingRow from "./OfferingRow";
 import Reveal from "./Reveal";
@@ -7,7 +7,10 @@ import Reveal from "./Reveal";
 
 export default function Offerings() {
   const t = useTranslations("offerings");
+  const tRoot = useTranslations();
   const columns = t.raw("columns") as Dictionary["offerings"]["columns"];
+  const waIntro = tRoot("waIntro");
+  const bookLabel = t("bookCta");
 
   return (
     <section id="offerings" className="bg-bone-2">
@@ -48,6 +51,8 @@ export default function Offerings() {
                       title={item.title}
                       text={item.text}
                       tags={item.tags}
+                      bookHref={waLink(`${waIntro} "${item.title}"`)}
+                      bookLabel={bookLabel}
                     />
                   ))}
                 </div>
