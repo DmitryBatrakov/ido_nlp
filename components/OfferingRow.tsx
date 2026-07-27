@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { LineIcon } from "./icons";
 import { useLocale } from "next-intl";
@@ -38,21 +39,12 @@ export default function OfferingRow({
         <h4 className="flex-1 text-lg sm:text-xl md:col-start-2 md:row-start-1 md:mb-2.5 md:flex-none">
           {title}
         </h4>
-        <svg
-          viewBox="0 0 24 24"
+        <ChevronDown
           aria-hidden="true"
-          className={`h-5 w-5 shrink-0 text-gold-ink transition-transform duration-300 md:hidden ${open ? "rotate-180" : ""
-            }`}
-        >
-          <path
-            d="M6 9l6 6 6-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+          className={`h-5 w-5 shrink-0 text-gold-ink transition-transform duration-300 md:hidden ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       <div
