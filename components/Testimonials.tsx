@@ -1,22 +1,18 @@
 "use client";
 
+import { useLocale, useTranslations } from "next-intl";
 import { useRef } from "react";
 import type { Dictionary } from "@/lib/content";
-import type { Locale } from "@/lib/i18n";
 import { LineIcon, QuoteMark } from "./icons";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
 
-export default function Testimonials({
-  t,
-  lang,
-}: {
-  t: Dictionary;
-  lang: Locale;
-}) {
-  const { testimonials } = t;
-  const isRtl = lang === "he";
+export default function Testimonials() {
+  const t = useTranslations("testimonials");
+  const locale = useLocale();
+  const isRtl = locale === "he";
+  const items = t.raw("items") as Dictionary["testimonials"]["items"];
   const scrollerRef = useRef<HTMLUListElement>(null);
 
   // dir: -1 = previous (toward start), +1 = next (toward end).
@@ -36,13 +32,13 @@ export default function Testimonials({
     <section id="testimonials" className="overflow-hidden bg-bone-2">
       <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
         <div className="mb-12 flex items-end justify-between gap-4 md:mb-16">
-          <SectionHeading eyebrow={testimonials.eyebrow} title={testimonials.title} />
+          <SectionHeading eyebrow={t("eyebrow")} title={t("title")} />
 
           <Reveal className="flex shrink-0 gap-2">
             <button
               type="button"
               onClick={() => scrollByCard(-1)}
-              aria-label={testimonials.prevLabel}
+              aria-label={t("prevLabel")}
               className="flex h-11 w-11 items-center justify-center border border-line text-ink-soft transition-colors hover:border-gold hover:text-ink cursor-pointer"
             >
               {/* base arrow points to the start (left); flip it in RTL */}
@@ -55,7 +51,7 @@ export default function Testimonials({
             <button
               type="button"
               onClick={() => scrollByCard(1)}
-              aria-label={testimonials.nextLabel}
+              aria-label={t("nextLabel")}
               className="flex h-11 w-11 items-center justify-center border border-line text-ink-soft transition-colors hover:border-gold hover:text-ink cursor-pointer"
             >
               <LineIcon
@@ -73,9 +69,9 @@ export default function Testimonials({
             className="snap-row -mx-5 flex gap-5 overflow-x-auto px-5 pb-4"
             tabIndex={0}
             role="region"
-            aria-label={testimonials.regionLabel}
+            aria-label={t("regionLabel")}
           >
-            {testimonials.items.map((item) => (
+            {items.map((item) => (
               <li
                 key={item.quote.slice(0, 24)}
                 className="relative flex w-[85vw] shrink-0 flex-col border border-line bg-card p-7 pt-12 sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
@@ -89,7 +85,7 @@ export default function Testimonials({
             ))}
           </ul>
           <p className="mt-2 text-sm text-ink-soft lg:hidden">
-            {testimonials.scrollHint}
+            {t("scrollHint")}
           </p>
         </Reveal>
       </div>

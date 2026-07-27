@@ -1,11 +1,17 @@
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
-import { contact, type Dictionary } from "@/lib/content";
-import type { Locale } from "@/lib/i18n";
+import { contact } from "@/lib/content";
 import { PhoneIcon, QuoteMark, WhatsAppIcon } from "./icons";
 import Reveal from "./Reveal";
 
-export default function Hero({ t, lang }: { t: Dictionary; lang: Locale }) {
-  const { brand, hero, tagline } = t;
+export default function Hero() {
+  const t = useTranslations();
+  const brand = useTranslations("brand");
+  const hero = useTranslations("hero");
+  const ui = useTranslations("ui");
+  const locale = useLocale();
+  const isHe = locale === "he";
+  const tagline = t.raw("tagline") as string[];
   return (
     <section
       id="top"
@@ -51,45 +57,43 @@ export default function Hero({ t, lang }: { t: Dictionary; lang: Locale }) {
           <Reveal delay={100}>
             <h1
               dir="ltr"
-              className={`my-6 font-wordmark text-[clamp(3.1rem,11vw,6.4rem)] leading-[0.9] tracking-tight ${lang === 'he' ? 'text-end' : 'text-start'}`}
+              className={`my-6 font-wordmark text-[clamp(3.1rem,11vw,6.4rem)] leading-[0.9] tracking-tight ${isHe ? 'text-end' : 'text-start'}`}
             >
-              <span className="block">{brand.wordmark.first}</span>
-              <span className="gold-text block">{brand.wordmark.second}</span>
+              <span className="block">{brand("wordmark.first")}</span>
+              <span className="gold-text block">{brand("wordmark.second")}</span>
             </h1>
-            <p className="sr-only">{brand.name}</p>
+            <p className="sr-only">{brand("name")}</p>
           </Reveal>
 
           <Reveal delay={200}>
             <p className="border-s-2 border-gold ps-4 text-xl font-bold sm:text-2xl">
-              {hero.role}
-              {hero.roleSub && (
-                <span
-                  dir="ltr"
-                  className="mt-1 block text-start text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cream-soft"
-                >
-                  {hero.roleSub}
-                </span>
-              )}
+              {hero("role")}
+              <span
+                dir="ltr"
+                className="mt-1 block text-start text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cream-soft"
+              >
+                {hero("roleSub")}
+              </span>
             </p>
-            <p className="mt-3 ps-4 text-sm text-cream-soft">{hero.location}</p>
+            <p className="mt-3 ps-4 text-sm text-cream-soft">{hero("location")}</p>
           </Reveal>
 
           <Reveal delay={320}>
             <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3">
               <a
-                href={t.whatsapp}
+                href={t("whatsapp")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-gold flex items-center gap-2.5 px-7 py-3.5 font-extrabold"
               >
                 <WhatsAppIcon className="h-5 w-5" />
-                {hero.cta}
+                {hero("cta")}
               </a>
               <a
                 href="#offerings"
                 className="px-2 py-3.5 font-bold text-cream-soft transition-colors hover:text-cream"
               >
-                {hero.ctaSecondary} {lang === "he" ? "←" : "→"}
+                {hero("ctaSecondary")} {isHe ? "←" : "→"}
               </a>
               <a
                 href={`tel:${contact.phone}`}
@@ -109,8 +113,8 @@ export default function Hero({ t, lang }: { t: Dictionary; lang: Locale }) {
               className="absolute -bottom-4 -left-4 h-full w-full border border-gold-lt/40"
             />
             <Image
-              src="/images/ido.png"
-              alt={t.ui.portraitAlt}
+              src="/images/ido3.jpeg"
+              alt={ui("portraitAlt")}
               width={1066}
               height={1600}
               preload

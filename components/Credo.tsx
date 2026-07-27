@@ -1,9 +1,9 @@
-import type { Dictionary } from "@/lib/content";
+import { useTranslations } from "next-intl";
 import { QuoteMark } from "./icons";
 import Reveal from "./Reveal";
 
-export default function Credo({ t }: { t: Dictionary }) {
-  const { credo } = t;
+export default function Credo() {
+  const t = useTranslations("credo");
   return (
     <section
       id="credo"
@@ -22,20 +22,20 @@ export default function Credo({ t }: { t: Dictionary }) {
       <div className="relative mx-auto max-w-4xl px-5 py-24 text-center md:py-32">
         <Reveal>
           <p className="mb-8 text-xs font-bold uppercase tracking-[0.24em] text-gold-lt">
-            {credo.eyebrow}
+            {t("eyebrow")}
           </p>
           <QuoteMark className="mx-auto mb-6 h-10 w-10 text-gold" />
         </Reveal>
         <Reveal delay={120}>
           <blockquote>
             <p className="text-3xl leading-snug sm:text-4xl lg:text-[2.75rem]">
-              {credo.quote}
+              {t("quote")}
             </p>
             <p className="gold-text mt-9 inline-block border-y border-gold-lt/45 px-8 py-4 text-2xl font-bold sm:text-3xl">
-              {credo.highlight}
+              {t("highlight")}
             </p>
             <p className="mx-auto mt-9 max-w-[44ch] text-lg text-cream-soft">
-              {credo.closing}
+              {t("closing")}
             </p>
           </blockquote>
         </Reveal>

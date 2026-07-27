@@ -13,9 +13,7 @@ import Media from "@/components/Media";
 import Offerings from "@/components/Offerings";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
-import { getContent } from "@/lib/content";
 import { routing } from "@/i18n/routing";
-import type { Locale } from "@/lib/i18n";
 
 export default async function Home({
   params,
@@ -27,25 +25,22 @@ export default async function Home({
 
   setRequestLocale(locale);
 
-  const typedLocale = locale as Locale;
-  const t = getContent(typedLocale);
-
   return (
     <>
-      <Header t={t} />
+      <Header />
       <main>
-        <Hero t={t} lang={typedLocale} />
-        <About t={t} />
-        <Offerings t={t} />
-        <Process t={t} />
-        <Testimonials t={t} lang={typedLocale} />
-        <Credo t={t} />
-        <Impact t={t} />
-        <Media t={t} />
-        <Certificates t={t} />
-        <Contact t={t} />
+        <Hero />
+        <About />
+        <Offerings />
+        <Process />
+        <Testimonials />
+        <Credo />
+        <Impact />
+        <Media />
+        <Certificates />
+        <Contact />
       </main>
-      <FloatingWhatsApp t={t} />
+      <FloatingWhatsApp />
     </>
   );
 }

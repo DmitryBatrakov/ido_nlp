@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import type { Dictionary } from "@/lib/content";
 import LangSwitch from "./LangSwitch";
@@ -7,7 +8,10 @@ import Logo from "./Logo";
 import { WhatsAppIcon } from "./icons";
 
 
-export default function Header({ t }: { t: Dictionary }) {
+export default function Header() {
+  const t = useTranslations();
+  const ui = useTranslations("ui");
+  const nav = t.raw("nav") as Dictionary["nav"];
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -27,12 +31,12 @@ export default function Header({ t }: { t: Dictionary }) {
       }`}
     >
       <div className="mx-auto flex h-17 max-w-6xl items-center justify-between gap-4 px-5">
-        <a href="#top" aria-label={t.ui.toTop}>
-          <Logo brand={t.brand} />
+        <a href="#top" aria-label={ui("toTop")}>
+          <Logo />
         </a>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label={t.ui.mainNav}>
-          {t.nav.map((item) => (
+        <nav className="hidden items-center gap-7 lg:flex" aria-label={ui("mainNav")}>
+          {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -43,13 +47,13 @@ export default function Header({ t }: { t: Dictionary }) {
           ))}
           <LangSwitch />
           <a
-            href={t.whatsapp}
+            href={t("whatsapp")}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 border border-gold-lt/40 px-4 py-2 text-sm font-bold text-gold-lt transition-colors hover:bg-gold-lt hover:text-night"
           >
             <WhatsAppIcon className="h-4 w-4" />
-            {t.ui.headerCta}
+            {ui("headerCta")}
           </a>
         </nav>
 
@@ -59,7 +63,7 @@ export default function Header({ t }: { t: Dictionary }) {
             type="button"
             className="flex h-10 w-10 flex-col items-center justify-center gap-1.5"
             aria-expanded={open}
-            aria-label={open ? t.ui.closeMenu : t.ui.openMenu}
+            aria-label={open ? ui("closeMenu") : ui("openMenu")}
             onClick={() => setOpen((v) => !v)}
           >
             <span
@@ -78,9 +82,9 @@ export default function Header({ t }: { t: Dictionary }) {
           open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
-        <nav className="overflow-hidden" aria-label={t.ui.mobileNav}>
+        <nav className="overflow-hidden" aria-label={ui("mobileNav")}>
           <ul className="flex flex-col gap-5 border-t border-line-dark px-5 py-6">
-            {t.nav.map((item, i) => (
+            {nav.map((item, i) => (
               <li
                 key={item.href}
                 className={`transition-[opacity,translate] duration-300 ease-out motion-reduce:transition-none ${
@@ -101,17 +105,17 @@ export default function Header({ t }: { t: Dictionary }) {
               className={`transition-[opacity,translate] duration-300 ease-out motion-reduce:transition-none ${
                 open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
               }`}
-              style={{ transitionDelay: open ? `${80 + t.nav.length * 40}ms` : "0ms" }}
+              style={{ transitionDelay: open ? `${80 + nav.length * 40}ms` : "0ms" }}
             >
               <a
-                href={t.whatsapp}
+                href={t("whatsapp")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 border border-gold-lt/40 px-4 py-3 font-bold text-gold-lt"
                 onClick={() => setOpen(false)}
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                {t.ui.headerCta}
+                {ui("headerCta")}
               </a>
             </li>
           </ul>

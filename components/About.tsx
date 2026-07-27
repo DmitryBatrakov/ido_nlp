@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import type { Dictionary } from "@/lib/content";
 import { LineIcon } from "./icons";
@@ -5,12 +6,18 @@ import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
 
-export default function About({ t }: { t: Dictionary }) {
-  const { about, roles } = t;
+export default function About() {
+  const t = useTranslations("about");
+  const tRoot = useTranslations();
+  const ui = useTranslations("ui");
+  const creds = t.raw("creds") as Dictionary["about"]["creds"];
+  const distinct = t.raw("distinct") as string[];
+  const roles = tRoot.raw("roles") as Dictionary["roles"];
+
   return (
     <section id="about" className="bg-bone">
       <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-        <SectionHeading eyebrow={about.eyebrow} title={about.title} className="mb-6" />
+        <SectionHeading eyebrow={t("eyebrow")} title={t("title")} className="mb-6" />
 
         <div className="grid items-stretch gap-10 md:grid-cols-[auto_1fr] md:gap-14">
           <Reveal delay={140} className="self-end">
@@ -21,7 +28,7 @@ export default function About({ t }: { t: Dictionary }) {
               />
               <Image
                 src="/images/ido2.png"
-                alt={t.ui.stageAlt}
+                alt={ui("stageAlt")}
                 width={1023}
                 height={1537}
                 sizes="(min-width: 768px) 22rem, 70vw"
@@ -33,14 +40,14 @@ export default function About({ t }: { t: Dictionary }) {
           <div className="flex flex-col justify-center">
             <Reveal>
               <p className="max-w-[56ch] text-lg leading-relaxed text-ink-soft">
-                {about.introLead}
-                <b className="font-extrabold text-gold-ink">{about.introHighlight}</b>
-                {about.introRest}
+                {t("introLead")}
+                <b className="font-extrabold text-gold-ink">{t("introHighlight")}</b>
+                {t("introRest")}
               </p>
             </Reveal>
 
             <ul className="mt-8 flex flex-col">
-              {about.creds.map((cred, i) => (
+              {creds.map((cred, i) => (
                 <li
                   key={cred.title}
                   className={`py-5 ${i > 0 ? "border-t border-line" : ""}`}
@@ -65,7 +72,7 @@ export default function About({ t }: { t: Dictionary }) {
           <Reveal className="md:pe-8">
             <div className="w-fit md:mx-auto">
               <div className="flex items-center gap-4">
-                <h3 className="text-xl sm:text-2xl">{about.distinctTitle}</h3>
+                <h3 className="text-xl sm:text-2xl">{t("distinctTitle")}</h3>
                 <LineIcon
                   name="target"
                   strokeWidth={1.35}
@@ -76,7 +83,7 @@ export default function About({ t }: { t: Dictionary }) {
             </div>
 
             <ul className="mt-7 flex w-fit flex-col gap-4 md:mx-auto">
-              {about.distinct.map((item) => (
+              {distinct.map((item) => (
                 <li
                   key={item}
                   className="grid grid-cols-[auto_1fr] items-start gap-4 leading-snug"
@@ -95,7 +102,7 @@ export default function About({ t }: { t: Dictionary }) {
           <Reveal delay={130} className="md:border-s md:border-line md:ps-8">
             <div className="w-fit md:mx-auto">
               <div className="flex items-center gap-4">
-                <h3 className="text-xl sm:text-2xl">{about.valueTitle}</h3>
+                <h3 className="text-xl sm:text-2xl">{t("valueTitle")}</h3>
                 <LineIcon
                   name="users"
                   strokeWidth={1.35}
@@ -106,7 +113,7 @@ export default function About({ t }: { t: Dictionary }) {
             </div>
 
             <p className="mt-7 leading-relaxed text-ink-soft md:text-center">
-              {about.value}
+              {t("value")}
             </p>
           </Reveal>
         </div>

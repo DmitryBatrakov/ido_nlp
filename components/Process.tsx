@@ -1,21 +1,23 @@
+import { useTranslations } from "next-intl";
 import type { Dictionary } from "@/lib/content";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
 
-export default function Process({ t }: { t: Dictionary }) {
-  const { process } = t;
+export default function Process() {
+  const t = useTranslations("process");
+  const steps = t.raw("steps") as Dictionary["process"]["steps"];
   return (
     <section id="process" className="bg-bone">
       <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
         <SectionHeading
-          eyebrow={process.eyebrow}
-          title={process.title}
+          eyebrow={t("eyebrow")}
+          title={t("title")}
           className="mb-12 md:mb-16"
         />
 
         <ol className="grid gap-15 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {process.steps.map((step, i) => (
+          {steps.map((step, i) => (
             <Reveal key={step.title} delay={i * 130}>
               <li className="h-full">
                 <div className="w-fit md:w-full">

@@ -175,48 +175,42 @@ dialog::backdrop {
   backdrop-filter: blur(6px);
 }
 
-/* Media mosaic — hand-set interlocked grid: big videos, wider vertical tiles */
+/* Media mosaic — hand-set interlocked grid: big landscape tiles, vertical tiles */
 .media-mosaic {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  aspect-ratio: 3 / 5;
+  grid-template-rows: repeat(8, 1fr);
+  aspect-ratio: 3 / 4;
   gap: 0.6rem;
   grid-template-areas:
-    "v1 v1 p1 p2"
-    "v1 v1 p1 p2"
-    "p3 v2 v2 p4"
-    "p3 v2 v2 p4"
-    "l1 l1 l2 l2"
-    "l1 l1 l2 l2"
-    "s1 p5 q  q"
-    "s1 p5 q  q"
-    "p6 p7 p8 s2"
-    "p6 p7 p8 s2";
+    "b1 b1 t1 t2"
+    "b1 b1 t1 t2"
+    "t3 t4 b2 b2"
+    "t3 t4 b2 b2"
+    "b3 b3 t5 t6"
+    "b3 b3 t5 t6"
+    "t7 t8 t9 t10"
+    "t7 t8 t9 t10";
 }
 .media-mosaic > * { min-width: 0; min-height: 0; }
-.a-v1 { grid-area: v1; }
-.a-v2 { grid-area: v2; }
-.a-l1 { grid-area: l1; }
-.a-l2 { grid-area: l2; }
-.a-q { grid-area: q; }
-.a-s1 { grid-area: s1; }
-.a-s2 { grid-area: s2; }
-.a-p1 { grid-area: p1; }
-.a-p2 { grid-area: p2; }
-.a-p3 { grid-area: p3; }
-.a-p4 { grid-area: p4; }
-.a-p5 { grid-area: p5; }
-.a-p6 { grid-area: p6; }
-.a-p7 { grid-area: p7; }
-.a-p8 { grid-area: p8; }
+.a-b1 { grid-area: b1; }
+.a-b2 { grid-area: b2; }
+.a-b3 { grid-area: b3; }
+.a-t1 { grid-area: t1; }
+.a-t2 { grid-area: t2; }
+.a-t3 { grid-area: t3; }
+.a-t4 { grid-area: t4; }
+.a-t5 { grid-area: t5; }
+.a-t6 { grid-area: t6; }
+.a-t7 { grid-area: t7; }
+.a-t8 { grid-area: t8; }
+.a-t9 { grid-area: t9; }
+.a-t10 { grid-area: t10; }
 
-/* wrapper that animates the collapse/expand height on mobile */
-@media (max-width: 700px) {
-  .media-collapse {
-    overflow: hidden;
-    transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+/* wrapper that animates the collapse/expand height (both mobile and desktop) */
+.media-collapse {
+  overflow: hidden;
+  transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 @media (prefers-reduced-motion: reduce) {
   .media-collapse { transition: none; }

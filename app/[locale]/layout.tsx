@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { Assistant, Montserrat } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
-import { getContent, contact } from "@/lib/content";
+import { contact } from "@/lib/content";
 import { routing } from "@/i18n/routing";
 import { dir, htmlLang, ogLocale, type Locale } from "@/lib/i18n";
 import "../globals.css";
@@ -33,14 +33,15 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
 
-  const t = getContent(locale);
+  const meta = await getTranslations({ locale, namespace: "meta" });
+  const brand = await getTranslations({ locale, namespace: "brand" });
   const path = `/${locale}`;
 
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: t.meta.title, template: t.meta.titleTemplate },
-    description: t.meta.description,
-    keywords: t.meta.keywords,
+    title: { default: meta("title"), template: meta("titleTemplate") },
+    description: meta("description"),
+    keywords: meta.raw("keywords") as string[],
     alternates: {
       canonical: path,
       languages: {
@@ -60,17 +61,17 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: t.meta.ogTitle,
-      description: t.meta.ogDescription,
+      title: meta("ogTitle"),
+      description: meta("ogDescription"),
       url: path,
-      siteName: t.brand.name,
+      siteName: brand("name"),
       locale: ogLocale[locale],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: t.meta.ogTitle,
-      description: t.meta.ogDescription,
+      title: meta("ogTitle"),
+      description: meta("ogDescription"),
     },
   };
 }
@@ -89,19 +90,22 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const typedLocale = locale as Locale;
-  const t = getContent(typedLocale);
+  const messages = await getMessages();
+  const brand = await getTranslations({ locale, namespace: "brand" });
+  const hero = await getTranslations({ locale, namespace: "hero" });
+  const meta = await getTranslations({ locale, namespace: "meta" });
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: t.brand.name,
+    name: brand("name"),
     alternateName: typedLocale === "he" ? "Ido Safra" : "עידו ספרא",
-    jobTitle: t.hero.role,
-    description: t.meta.description,
+    jobTitle: hero("role"),
+    description: meta("description"),
     url: `${SITE_URL}/${typedLocale}`,
     image: `${SITE_URL}/images/ido.png`,
     telephone: contact.phone,
-    knowsAbout: t.meta.keywords,
+    knowsAbout: meta.raw("keywords") as string[],
     address: {
       "@type": "PostalAddress",
       addressLocality: typedLocale === "he" ? "חיפה" : "Haifa",
@@ -121,7 +125,7 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <NextIntlClientProvider locale={typedLocale}>
+        <NextIntlClientProvider locale={typedLocale} messages={messages}>
           {children}
         </NextIntlClientProvider>
       </body>

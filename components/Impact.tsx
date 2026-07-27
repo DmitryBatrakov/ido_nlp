@@ -1,21 +1,25 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import type { Dictionary } from "@/lib/content";
 import { LineIcon } from "./icons";
 import Reveal from "./Reveal";
 
 
-export default function Impact({ t }: { t: Dictionary }) {
-  const { book, impact, podcast } = t;
+export default function Impact() {
+  const impact = useTranslations("impact");
+  const book = useTranslations("book");
+  const podcast = useTranslations("podcast");
+  const chips = impact.raw("chips") as string[];
+  const points = podcast.raw("points") as string[];
   return (
     <section id="impact" className="bg-bone">
       <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
         <Reveal className="mb-12 text-center md:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-[3rem]">
-            <span className="gold-text">{impact.titleGold}</span>
-            <span className="block">{impact.titleInk}</span>
+            <span className="gold-text">{impact("titleGold")}</span>
+            <span className="block">{impact("titleInk")}</span>
           </h2>
           <p className="mt-5 flex flex-wrap items-center justify-center gap-3.5 text-xs font-bold uppercase tracking-[0.18em] text-gold-ink">
-            {impact.chips.map((chip, i) => (
+            {chips.map((chip, i) => (
               <span key={chip} className="flex items-center gap-3.5">
                 {i > 0 && (
                   <span
@@ -28,7 +32,7 @@ export default function Impact({ t }: { t: Dictionary }) {
             ))}
           </p>
           <p className="mx-auto mt-5 max-w-[62ch] leading-relaxed text-ink-soft">
-            {impact.lede}
+            {impact("lede")}
           </p>
         </Reveal>
 
@@ -37,15 +41,15 @@ export default function Impact({ t }: { t: Dictionary }) {
             <article className="flex h-full flex-col border border-line bg-card p-6 md:p-8">
               <p className="mb-5 flex items-center gap-2.5 text-xs font-extrabold uppercase tracking-[0.2em] text-gold-ink">
                 <LineIcon name="book" className="h-5 w-5" />
-                {book.kicker}
+                {book("kicker")}
               </p>
 
               <div className="flex flex-col gap-6 sm:flex-row">
                 <a
-                  href={book.url}
+                  href={book("url")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`${book.buyLabel} — ${book.title}`}
+                  aria-label={`${book("buyLabel")} — ${book("title")}`}
                   className="group relative mx-auto block w-34 shrink-0 sm:mx-0"
                 >
                   <span
@@ -53,8 +57,8 @@ export default function Impact({ t }: { t: Dictionary }) {
                     className="absolute -bottom-2.5 -left-2.5 h-full w-full border border-gold/40 transition-transform group-hover:-translate-x-1 group-hover:translate-y-1"
                   />
                   <Image
-                    src={book.cover}
-                    alt={book.coverAlt}
+                    src={book("cover")}
+                    alt={book("coverAlt")}
                     width={500}
                     height={790}
                     sizes="8.5rem"
@@ -63,28 +67,28 @@ export default function Impact({ t }: { t: Dictionary }) {
                 </a>
 
                 <div>
-                  <h3 className="text-2xl">{book.title}</h3>
+                  <h3 className="text-2xl">{book("title")}</h3>
                   <p className="mb-2 text-sm font-bold text-gold-ink">
-                    {book.subtitle}
+                    {book("subtitle")}
                   </p>
-                  <p className="leading-relaxed text-ink-soft">{book.description}</p>
+                  <p className="leading-relaxed text-ink-soft">{book("description")}</p>
                 </div>
               </div>
 
               <p className="mt-auto border-t border-line pt-6 font-bold leading-snug">
-                {book.quote}
+                {book("quote")}
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-4">
                 <a
-                  href={book.url}
+                  href={book("url")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-gold inline-flex items-center px-6 py-3 font-extrabold"
                 >
-                  {book.cta}
+                  {book("cta")}
                 </a>
-                <span className="text-sm text-ink-soft">{book.note}</span>
+                <span className="text-sm text-ink-soft">{book("note")}</span>
               </div>
             </article>
           </Reveal>
@@ -93,17 +97,17 @@ export default function Impact({ t }: { t: Dictionary }) {
             <article className="flex h-full flex-col border border-line bg-card p-6 md:p-8">
               <p className="mb-5 flex items-center gap-2.5 text-xs font-extrabold uppercase tracking-[0.2em] text-gold-ink">
                 <LineIcon name="podcast" className="h-5 w-5" />
-                {podcast.kicker}
+                {podcast("kicker")}
               </p>
 
-              <h3 className="text-2xl">{podcast.title}</h3>
+              <h3 className="text-2xl">{podcast("title")}</h3>
               <p className="mb-2 text-start text-sm font-bold text-gold-ink">
-                {podcast.subtitle}
+                {podcast("subtitle")}
               </p>
-              <p className="leading-relaxed text-ink-soft">{podcast.description}</p>
+              <p className="leading-relaxed text-ink-soft">{podcast("description")}</p>
 
-              <ul className="mt-4 flex flex-col gap-2.5">
-                {podcast.points.map((point) => (
+              <ul className="my-4 flex flex-col gap-2.5">
+                {points.map((point) => (
                   <li key={point} className="flex items-start gap-2.5 text-ink-soft">
                     <LineIcon
                       name="check"
@@ -116,18 +120,18 @@ export default function Impact({ t }: { t: Dictionary }) {
               </ul>
 
               <p className="mt-auto border-t border-line pt-6 font-bold leading-snug">
-                {podcast.quote}
+                {podcast("quote")}
               </p>
 
               <div className="mt-6">
                 <a
-                  href={podcast.url}
+                  href={podcast("url")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 border border-gold/45 px-6 py-3 font-extrabold text-gold-ink transition-colors hover:bg-gold hover:text-night"
                 >
                   <LineIcon name="mic" className="h-5 w-5" />
-                  {podcast.cta}
+                  {podcast("cta")}
                 </a>
               </div>
             </article>

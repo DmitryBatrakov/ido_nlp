@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/content";
@@ -13,51 +14,59 @@ const useIsoLayoutEffect =
 
 
 // Hand-set mosaic map — index in media.items → { grid area, mobile shape }.
-// Order must match the item order in content (square, video, short, portrait,
-// video, short, 4× landscape, 7× portrait).
+// Order must match the item order in content: big landscape, then vertical
+// tiles (portraits + the two vertical shorts) woven around two more big tiles.
 const LAYOUT: { area: string; shape: "big" | "wide" | "tall" }[] = [
-  { area: "v1", shape: "wide" },
-  { area: "p1", shape: "tall" },
-  { area: "p2", shape: "tall" },
-  { area: "p3", shape: "tall" },
-  { area: "v2", shape: "wide" },
-  { area: "p4", shape: "tall" },
-  { area: "l1", shape: "wide" },
-  { area: "l2", shape: "wide" },
-  { area: "s1", shape: "tall" },
-  { area: "p5", shape: "tall" },
-  { area: "q", shape: "big" },
-  { area: "p6", shape: "tall" },
-  { area: "p7", shape: "tall" },
-  { area: "p8", shape: "tall" },
-  { area: "s2", shape: "tall" },
+  { area: "b1", shape: "big" },
+  { area: "t1", shape: "tall" },
+  { area: "t2", shape: "tall" },
+  { area: "t3", shape: "tall" },
+  { area: "t4", shape: "tall" },
+  { area: "b2", shape: "big" },
+  { area: "t5", shape: "tall" },
+  { area: "t6", shape: "tall" },
+  { area: "b3", shape: "big" },
+  { area: "t7", shape: "tall" },
+  { area: "t8", shape: "tall" },
+  { area: "t9", shape: "tall" },
+  { area: "t10", shape: "tall" },
 ];
 
-export default function Media({ t }: { t: Dictionary }) {
-  const { media } = t;
+// When collapsed on desktop, reveal the first two tile-rows of the mosaic
+// (b1, t1, t2, t3, t4, b2 — the first 6 entries in LAYOUT above).
+const DESKTOP_COLLAPSED = 6;
+
+export default function Media() {
+  const t = useTranslations("media");
+  const items = t.raw("items") as Dictionary["media"]["items"];
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
 
   // On mobile the second half is hidden behind a "show more" toggle.
-  const half = Math.ceil(media.items.length / 2);
+  const half = Math.ceil(items.length / 2);
 
   const wrapRef = useRef<HTMLDivElement>(null);
   const mosaicRef = useRef<HTMLDivElement>(null);
   const firstRun = useRef(true);
 
-  // Target height for the current state (null on desktop = no clipping).
+  // Target height for the current collapsed/expanded state.
   const targetHeight = () => {
     const mos = mosaicRef.current;
-    if (!mos || !window.matchMedia("(max-width: 700px)").matches) return null;
+    if (!mos) return null;
     if (showAll) return mos.scrollHeight;
-    // Collapsed: fit exactly the first `half` tiles. Measured against the
+    // Collapsed: fit exactly the first N tiles. On mobile the mosaic is a
+    // DOM-order flow, so we reveal the first half; on desktop it's a fixed
+    // area grid, so we reveal its first two tile-rows. Measured against the
     // mosaic's own top (getBoundingClientRect) so it's independent of where
     // offsetParent happens to be, and robust to dense grid flow.
+    const count = window.matchMedia("(max-width: 700px)").matches
+      ? half
+      : DESKTOP_COLLAPSED;
     const tiles = Array.from(mos.children) as HTMLElement[];
-    if (tiles.length <= half) return mos.scrollHeight;
+    if (tiles.length <= count) return mos.scrollHeight;
     const top = mos.getBoundingClientRect().top;
     let h = 0;
-    for (let i = 0; i < half; i++) {
+    for (let i = 0; i < count; i++) {
       h = Math.max(h, tiles[i].getBoundingClientRect().bottom - top);
     }
     return Math.round(h);
@@ -117,15 +126,15 @@ export default function Media({ t }: { t: Dictionary }) {
     <section id="videos" className="bg-bone-2">
       <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
         <SectionHeading
-          eyebrow={media.eyebrow}
-          title={media.title}
+          eyebrow={t("eyebrow")}
+          title={t("title")}
           className="mb-12 md:mb-16"
         />
 
         <Reveal>
           <div ref={wrapRef} className="media-collapse">
             <div ref={mosaicRef} className="media-mosaic">
-              {media.items.map((item, i) => {
+              {items.map((item, i) => {
               const { area, shape } = LAYOUT[i] ?? { area: "", shape: "tall" };
               const place = `a-${area} shape-${shape}${i >= half ? " media-extra" : ""}`;
 
@@ -139,7 +148,7 @@ export default function Media({ t }: { t: Dictionary }) {
                       id={item.id}
                       title={item.title}
                       short={item.short}
-                      playLabel={media.playLabel}
+                      playLabel={t("playLabel")}
                       fill
                     />
                   </div>
@@ -151,7 +160,7 @@ export default function Media({ t }: { t: Dictionary }) {
                   key={i}
                   type="button"
                   onClick={() => setLightbox(item.src)}
-                  aria-label={media.photoLabel}
+                  aria-label={t("photoLabel")}
                   className={`group relative cursor-pointer overflow-hidden rounded-xl border border-line bg-bone shadow-sm ${place}`}
                 >
                   <Image
@@ -168,14 +177,14 @@ export default function Media({ t }: { t: Dictionary }) {
           </div>
         </Reveal>
 
-        {/* mobile-only: reveal the hidden half */}
-        <div className="mt-8 hidden justify-center max-[700px]:flex">
+        {/* reveal the hidden tiles (mobile: second half, desktop: bottom rows) */}
+        <div className="mt-8 flex justify-center">
           <button
             type="button"
             onClick={() => setShowAll((v) => !v)}
-            className="inline-flex items-center gap-2 border border-gold/45 px-7 py-3 font-extrabold text-gold-ink transition-colors hover:bg-gold hover:text-night"
+            className="inline-flex items-center gap-2 border border-gold/45 px-7 py-3 font-extrabold text-gold-ink transition-colors hover:bg-gold hover:text-night cursor-pointer"
           >
-            {showAll ? media.lessLabel : media.moreLabel}
+            {showAll ? t("lessLabel") : t("moreLabel")}
           </button>
         </div>
       </div>
@@ -184,7 +193,7 @@ export default function Media({ t }: { t: Dictionary }) {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={media.photoLabel}
+          aria-label={t("photoLabel")}
           onClick={() => setLightbox(null)}
           className="fixed inset-0 z-100 flex items-center justify-center bg-night/92 p-5 backdrop-blur-sm"
         >
@@ -197,7 +206,7 @@ export default function Media({ t }: { t: Dictionary }) {
           <button
             type="button"
             onClick={() => setLightbox(null)}
-            aria-label={media.closeLabel}
+            aria-label={t("closeLabel")}
             className="absolute inset-e-5 top-5 flex h-11 w-11 items-center justify-center border border-line-dark bg-night/60 text-cream transition-colors hover:border-gold"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">

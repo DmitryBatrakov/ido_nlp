@@ -1,5 +1,5 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import type { Dictionary } from "@/lib/content";
 
 
 
@@ -19,16 +19,15 @@ export function Monogram({ className = "h-9 w-auto" }: { className?: string }) {
 
 
 export default function Logo({
-  brand,
   size = "sm",
   tone = "dark",
   className = "",
 }: {
-  brand: Dictionary["brand"];
   size?: "sm" | "lg";
   tone?: "dark" | "light";
   className?: string;
 }) {
+  const t = useTranslations("brand");
   const large = size === "lg";
   const goldTone = tone === "dark" ? "text-gold-lt" : "text-gold-ink";
 
@@ -40,13 +39,13 @@ export default function Logo({
           dir="ltr"
           className={`font-wordmark tracking-[0.16em] ${large ? "text-xl sm:text-2xl" : "text-[0.95rem]"}`}
         >
-          {brand.wordmark.first} {brand.wordmark.second}
+          {t("wordmark.first")} {t("wordmark.second")}
         </span>
         <span
           dir="ltr"
           className={`tracking-[0.2em] ${goldTone} ${large ? "text-[0.65rem]" : "text-[0.58rem]"}`}
         >
-          {brand.kicker}
+          {t("kicker")}
         </span>
       </span>
     </span>

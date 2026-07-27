@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Dictionary } from "@/lib/content";
@@ -7,8 +8,9 @@ import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
 
-export default function Certificates({ t }: { t: Dictionary }) {
-  const certs = t.certificates;
+export default function Certificates() {
+  const t = useTranslations("certificates");
+  const items = t.raw("items") as Dictionary["certificates"]["items"];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [active, setActive] = useState<number | null>(null);
 
@@ -22,31 +24,31 @@ export default function Certificates({ t }: { t: Dictionary }) {
     setActive(null);
   };
 
-  const cert = active === null ? null : certs.items[active];
+  const cert = active === null ? null : items[active];
 
   return (
     <section id="certificates" className="bg-bone">
       <div className="mx-auto max-w-7xl px-5 py-20 md:py-28">
         <SectionHeading
-          eyebrow={certs.eyebrow}
-          title={certs.title}
+          eyebrow={t("eyebrow")}
+          title={t("title")}
           className="mb-12 md:mb-16 max-w-6xl mx-auto"
         />
 
-        <ul className="grid gap-5 grid-cols-2 lg:grid-cols-4">
-          {certs.items.map((c, i) => (
+        <ul className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {items.map((c, i) => (
             <Reveal key={c.src} delay={(i % 4) * 100}>
               <li className="h-full">
                 <button
                   type="button"
                   onClick={() => openCert(i)}
                   className="group flex h-full w-full flex-col border border-line bg-card text-start transition-colors hover:border-gold/50"
-                  aria-label={`${certs.viewLabel}: ${c.title}`}
+                  aria-label={`${t("viewLabel")}: ${c.title}`}
                 >
                   <span className="block w-full overflow-hidden border-b border-line">
                     <Image
                       src={c.src}
-                      alt={`${certs.altPrefix} — ${c.title}`}
+                      alt={`${t("altPrefix")} — ${c.title}`}
                       width={c.width}
                       height={c.height}
                       sizes="(min-width: 1024px) 17rem, (min-width: 640px) 45vw, 90vw"
@@ -76,7 +78,7 @@ export default function Certificates({ t }: { t: Dictionary }) {
           <figure>
             <Image
               src={cert.src}
-              alt={`${certs.altPrefix} — ${cert.title}`}
+              alt={`${t("altPrefix")} — ${cert.title}`}
               width={cert.width}
               height={cert.height}
               sizes="94vw"
@@ -91,7 +93,7 @@ export default function Certificates({ t }: { t: Dictionary }) {
                 onClick={closeCert}
                 className="border border-line px-4 py-2 font-bold text-ink transition-colors hover:border-gold"
               >
-                {certs.closeLabel}
+                {t("closeLabel")}
               </button>
             </figcaption>
           </figure>
