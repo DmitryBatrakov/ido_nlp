@@ -84,6 +84,7 @@ export default function Hero() {
                 href={t("whatsapp")}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-umami-event="whatsapp-hero"
                 className="btn-gold flex items-center gap-2.5 px-7 py-3.5 font-extrabold"
               >
                 <WhatsAppIcon className="h-5 w-5" />

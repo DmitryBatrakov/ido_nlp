@@ -70,6 +70,8 @@ export default function OfferingRow({
               href={bookHref}
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="whatsapp-offering"
+              data-umami-event-topic={title}
               className="group inline-flex items-center gap-1.5 self-start whitespace-nowrap text-sm font-bold text-gold-ink"
             >
               <span className="underline-offset-4 group-hover:underline">

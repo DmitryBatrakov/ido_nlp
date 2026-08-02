@@ -50,6 +50,7 @@ export default function Header() {
             href={t("whatsapp")}
             target="_blank"
             rel="noopener noreferrer"
+            data-umami-event="whatsapp-header"
             className="flex items-center gap-2 border border-gold-lt/40 px-4 py-2 text-sm font-bold text-gold-lt transition-colors hover:bg-gold-lt hover:text-night"
           >
             <WhatsAppIcon className="h-4 w-4" />
@@ -111,6 +112,7 @@ export default function Header() {
                 href={t("whatsapp")}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-umami-event="whatsapp-header-mobile"
                 className="flex items-center justify-center gap-2 border border-gold-lt/40 px-4 py-3 font-bold text-gold-lt"
                 onClick={() => setOpen(false)}
               >

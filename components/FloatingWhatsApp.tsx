@@ -9,6 +9,7 @@ export default function FloatingWhatsApp() {
       href={t("whatsapp")}
       target="_blank"
       rel="noopener noreferrer"
+      data-umami-event="whatsapp-float"
       aria-label={ui("waFloat")}
       className="fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-night/25 transition-transform hover:scale-105 motion-reduce:transition-none"
     >

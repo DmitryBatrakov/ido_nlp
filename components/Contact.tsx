@@ -41,6 +41,7 @@ export default function Contact() {
               href={t("whatsapp")}
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="whatsapp-contact"
               className="btn-gold flex w-full items-center justify-center gap-2.5 whitespace-nowrap px-8 py-4 font-extrabold sm:w-auto"
             >
               <WhatsAppIcon className="h-5 w-5" />

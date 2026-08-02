@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
@@ -128,6 +129,11 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={typedLocale} messages={messages}>
           {children}
         </NextIntlClientProvider>
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="8b44784c-9dc7-46c4-bf12-d7c77a83a219"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
