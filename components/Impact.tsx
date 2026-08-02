@@ -49,6 +49,7 @@ export default function Impact() {
                   href={book("url")}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-umami-event="הספר"
                   aria-label={`${book("buyLabel")} — ${book("title")}`}
                   className="group relative mx-auto block w-34 shrink-0 sm:mx-0"
                 >
@@ -84,6 +85,7 @@ export default function Impact() {
                   href={book("url")}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-umami-event="הספר"
                   className="btn-gold inline-flex items-center px-6 py-3 font-extrabold"
                 >
                   {book("cta")}
@@ -128,6 +130,7 @@ export default function Impact() {
                   href={podcast("url")}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-umami-event="פודקאסט"
                   className="inline-flex items-center gap-2.5 border border-gold/45 px-6 py-3 font-extrabold text-gold-ink transition-colors hover:bg-gold hover:text-night"
                 >
                   <LineIcon name="mic" className="h-5 w-5" />

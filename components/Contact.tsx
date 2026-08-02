@@ -41,7 +41,7 @@ export default function Contact() {
               href={t("whatsapp")}
               target="_blank"
               rel="noopener noreferrer"
-              data-umami-event="whatsapp-contact"
+              data-umami-event="וואטסאפ – יצירת קשר"
               className="btn-gold flex w-full items-center justify-center gap-2.5 whitespace-nowrap px-8 py-4 font-extrabold sm:w-auto"
             >
               <WhatsAppIcon className="h-5 w-5" />
@@ -49,6 +49,7 @@ export default function Contact() {
             </a>
             <a
               href={`tel:${contact.phone}`}
+              data-umami-event="טלפון"
               className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap border border-line-dark px-8 py-4 font-bold transition-colors hover:border-gold sm:w-auto"
             >
               <PhoneIcon className="h-5 w-5" />
@@ -58,6 +59,7 @@ export default function Contact() {
               href={contact.instagram}
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="אינסטגרם"
               className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap border border-line-dark px-8 py-4 font-bold transition-colors hover:border-gold sm:w-auto"
             >
               <InstagramIcon className="h-5 w-5" />
@@ -67,6 +69,7 @@ export default function Contact() {
               href={contact.youtube}
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="יוטיוב"
               className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap border border-line-dark px-8 py-4 font-bold transition-colors hover:border-gold sm:w-auto"
             >
               <YouTubeIcon className="h-5 w-5" />
